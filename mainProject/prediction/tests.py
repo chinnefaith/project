@@ -107,6 +107,25 @@ class HostConfigurationTests(TestCase):
                 os.environ['DJANGO_DEBUG'] = original_debug
             importlib.reload(settings_module)
 
+    def test_render_hostname_is_allowed_even_with_custom_host_allowlist(self):
+        import mainProject.settings as settings_module
+
+        hostname = 'project-cx7m.onrender.com'
+        try:
+            with patch.dict(os.environ, {
+                'DJANGO_ALLOWED_HOSTS': 'localhost',
+                'DJANGO_DEBUG': 'False',
+                'RENDER_EXTERNAL_HOSTNAME': hostname,
+            }):
+                importlib.reload(settings_module)
+                self.assertIn(hostname, settings_module.ALLOWED_HOSTS)
+                with patch('django.conf.settings.ALLOWED_HOSTS',
+                           settings_module.ALLOWED_HOSTS):
+                    response = self.client.get('/', HTTP_HOST=hostname)
+                self.assertEqual(response.status_code, 200)
+        finally:
+            importlib.reload(settings_module)
+
 
 class RootRouteTests(TestCase):
     def test_root_and_favicon_routes_do_not_404(self):
