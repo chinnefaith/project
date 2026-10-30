@@ -20,10 +20,7 @@ DEFAULT_ALLOWED_HOSTS = [
     '0.0.0.0',
     '10.0.2.2',
     '192.168.216.50',
-    'sistem1-production.up.railway.app', 
-    'shellscan-v1-production-fc95.up.railway.app',
-    '*.up.railway.app',
-    '*.railway.app',
+    'project-cx7m.onrender.com',
 ]
 ALLOWED_HOSTS = [
     host.strip()
@@ -43,10 +40,7 @@ DEFAULT_CORS_ORIGINS = [
     'http://127.0.0.1',
     'http://10.0.2.2',
     'http://192.168.216.50',
-    'https://sistem1-production.up.railway.app', 
-    'https://shellscan-v1-production-fc95.up.railway.app',
-    'https://*.up.railway.app',
-    'https://*.railway.app',
+    'https://project-cx7m.onrender.com',
 ]
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
@@ -56,10 +50,7 @@ CORS_ALLOWED_ORIGINS = [
     if origin.strip()
 ]
 DEFAULT_CSRF_TRUSTED_ORIGINS = [
-    'https://sistem1-production.up.railway.app',
-    'https://shellscan-v1-production-fc95.up.railway.app',
-    'https://*.up.railway.app',
-    'https://*.railway.app',
+    'https://project-cx7m.onrender.com',
 ]
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()

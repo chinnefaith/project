@@ -85,7 +85,7 @@ class PredictViewTests(TestCase):
 
 
 class HostConfigurationTests(TestCase):
-    def test_production_hosts_allow_railway_domains_by_default(self):
+    def test_production_hosts_allow_render_domain_by_default(self):
         import mainProject.settings as settings_module
 
         original_allowed_hosts = os.environ.get('DJANGO_ALLOWED_HOSTS')
@@ -95,7 +95,7 @@ class HostConfigurationTests(TestCase):
             os.environ['DJANGO_DEBUG'] = 'False'
             importlib.reload(settings_module)
             hosts = set(settings_module.ALLOWED_HOSTS)
-            self.assertTrue('*' in hosts or '*.up.railway.app' in hosts or '*.railway.app' in hosts)
+            self.assertIn('project-cx7m.onrender.com', hosts)
         finally:
             if original_allowed_hosts is None:
                 os.environ.pop('DJANGO_ALLOWED_HOSTS', None)
@@ -595,7 +595,7 @@ class SeededAdvisoryMigrationTests(TestCase):
         self.assertEqual(response['Content-Type'], 'application/pdf')
         self.assertNotIn('X-Frame-Options', response)
         self.assertIn(
-            'https://sistem1-production.up.railway.app',
+            'https://project-cx7m.onrender.com',
             response['Content-Security-Policy'],
         )
         advisory = ShellfishAdvisory.objects.first()
